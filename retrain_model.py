@@ -43,7 +43,7 @@ class Retrainer():
         X_train = pd.DataFrame(X_train, index=self.dataset.s_id)
         self.X_train = X_train.loc[self.anno_dict.keys()]
         y_train = pd.DataFrame.from_dict(self.anno_dict, orient='index').reindex(self.X_train.index)
-        self.y_train = LabelEncoder().fit_transform(y_train)
+        self.y_train = LabelEncoder().fit_transform(y_train.values.ravel())
 
         if os.path.exists(self.out_f):
             self.pool_info = self.load_json(self.out_f)

@@ -63,3 +63,6 @@ example:
 ```
 python3 retrain_model.py -i 827 -a new_anno.json
 ```
+
+#### Pretraining a model
+This requires access to the DEAM dataset.

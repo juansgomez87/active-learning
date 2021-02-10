@@ -16,6 +16,7 @@ import os
 import sys
 import pdb
 import joblib
+import xgboost as xgb
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 
@@ -89,12 +90,12 @@ class Retrainer():
     def run(self):
         # re train each model
         for i, mod_fn in enumerate(self.mod_list):
-            print('Performing pretraining for model {} ({}/{})'.format(mod_fn, i, len(self.mod_list) - 1))
+            print('Performing retraining for model {} ({}/{})'.format(mod_fn, i, len(self.mod_list) - 1))
             mod = joblib.load(mod_fn)
             # TODO: check metric evaluation
-            mod.fit(self.X_train.values, self.y_train, eval_metric='auc')
-            # pdb.set_trace()
+            mod.fit(self.X_train.values, self.y_train, eval_metric='auc', xgb_model=mod._Booster) 
             joblib.dump(mod, mod_fn)
+            pdb.set_trace()
 
 
 if __name__ == "__main__":

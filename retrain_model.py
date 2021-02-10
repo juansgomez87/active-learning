@@ -95,7 +95,6 @@ class Retrainer():
             # TODO: check metric evaluation
             mod.fit(self.X_train.values, self.y_train, eval_metric='auc', xgb_model=mod._Booster) 
             joblib.dump(mod, mod_fn)
-            pdb.set_trace()
 
 
 if __name__ == "__main__":

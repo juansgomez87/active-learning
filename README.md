@@ -76,3 +76,17 @@ Example:
 ```
 python3 deam_classifier.py -cv 5 -m xgb
 ```
+
+
+## Note:
+Change in xgboost/sklearn.py Line 853:
+```
+        else:
+            # added for active learning
+            if xgb_model is None:
+                self.classes_ = np.unique(y)
+                self.n_classes_ = len(self.classes_)
+                if not self.use_label_encoder and (
+                        not np.array_equal(self.classes_, np.arange(self.n_classes_))):
+                    raise ValueError(label_encoding_check_error)
+```

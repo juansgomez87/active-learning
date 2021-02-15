@@ -1,7 +1,25 @@
 smile.log
 test.py
 active_trompa_live.py
+active_trompa_live_old.py
 active_trompa_off.py
 deam_classifier.py
 
 active_learner/
+
+models/pretrained/cris/
+models/pretrained/classifier_rf.it_0.pkl
+models/pretrained/classifier_rf.it_1.pkl
+models/pretrained/classifier_rf.it_2.pkl
+models/pretrained/classifier_rf.it_3.pkl
+models/pretrained/classifier_rf.it_4.pkl
+models/pretrained/finetune_xgb.it_0.pkl
+models/pretrained/finetune_xgb.it_1.pkl
+models/pretrained/finetune_xgb.it_2.pkl
+models/pretrained/finetune_xgb.it_3.pkl
+models/pretrained/finetune_xgb.it_4.pkl
+models/pretrained/finetune_live_xgb.it_0.pkl
+models/pretrained/finetune_live_xgb.it_1.pkl
+models/pretrained/finetune_live_xgb.it_2.pkl
+models/pretrained/finetune_live_xgb.it_3.pkl
+models/pretrained/finetune_live_xgb.it_4.pkl

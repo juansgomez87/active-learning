@@ -93,7 +93,7 @@ class Retrainer():
             print('Performing retraining for model {} ({}/{})'.format(mod_fn, i, len(self.mod_list) - 1))
             mod = joblib.load(mod_fn)
             # TODO: check metric evaluation
-            mod.fit(self.X_train.values, self.y_train, eval_metric='auc', xgb_model=mod._Booster) 
+            mod.fit(self.X_train.values, self.y_train, eval_metric='auc', xgb_model=mod.get_booster()) 
             joblib.dump(mod, mod_fn)
 
 

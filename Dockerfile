@@ -15,4 +15,3 @@ RUN pip3 install -r /tmp/requirements.txt
 RUN mkdir /code
 COPY . /code
 WORKDIR /code
-ENTRYPOINT [ "python3", "/code/quad_pred.py" ]

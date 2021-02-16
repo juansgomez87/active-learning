@@ -1,11 +1,11 @@
 # TROMPA Music Emotion Recognition
 
 ## Usage
-The TROMPA-MER system offers five functions: create a new user, extract features from audio, predict an emotion from the features, get songs to be annotated, and retrain a model for a particular user. To start download the data from [here](), and extract all the files inside the `data` directory. 
+The TROMPA-MER system offers five functions: create a new user, extract features from audio, predict an emotion from the features, get songs to be annotated, and retrain a model for a particular user. To start download the data from [here](https://drive.google.com/file/d/1ZsAKCXgfqNOSyD58ZF1sVKjbQ3hWBfGf/view?usp=sharing), and extract all the files inside the `data` directory. 
 
 #### To build with Docker:
 
-To run this example with Docker:
+In order to build the Docker container use:
 ```
 sudo docker build -t trompa-emotion .
 ```
@@ -24,7 +24,7 @@ python3 create_user.py -i 827
 ```
 Docker:
 ```
-sudo docker run -it trompa-emotion create_user.py -i 829
+sudo docker run -it trompa-emotion create_user.py -i 828
 ```
 
 #### Extract features from audio:

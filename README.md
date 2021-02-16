@@ -1,7 +1,14 @@
 # TROMPA Music Emotion Recognition
 
 ## Usage
-The TROMPA-MER system offers five functions:
+The TROMPA-MER system offers five functions: create a new user, extract features from audio, predict an emotion from the features, get songs to be annotated, and retrain a model for a particular user. To start download the data from [here](), and extract all the files inside the `data` directory. 
+
+#### To build with Docker:
+
+To run this example with Docker:
+```
+sudo docker build -t trompa-emotion .
+```
 
 #### Create a user model:
 - Input: user ID
@@ -14,6 +21,10 @@ python3 create_user.py -i USER_ID
 Example: 
 ```
 python3 create_user.py -i 827
+```
+Docker:
+```
+sudo docker run -it trompa-emotion create_user.py -i 829
 ```
 
 #### Extract features from audio:
@@ -28,6 +39,10 @@ Example:
 ```
 python3 extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.csv
 ```
+Docker:
+```
+sudo docker run -it trompa-emotion extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.csv
+```
 
 #### Predict emotion:
 - Input: features from IS13 feature set (csv file), model to load
@@ -40,6 +55,10 @@ python3 predict_emotion.py -i CSV_FILE -o JSON_FILE -m PKL_MODEL_FILE
 Example: 
 ```
 python3 predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
+```
+Docker:
+```
+sudo docker run -it trompa-emotion predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
 ```
 
 #### Get songs to be annotated
@@ -55,6 +74,10 @@ Example:
 ```
 python3 get_hard_tracks.py -i 827 -q 10 
 ```
+Docker:
+```
+sudo docker run -it trompa-emotion get_hard_tracks.py -i 827 -q 10
+```
 
 #### Re-train model:
 - Input: list of annotations from user X, and iteration number
@@ -67,6 +90,10 @@ python3 retrain_model.py -i USER_ID -a ANNOTATIONS
 Example:
 ```
 python3 retrain_model.py -i 827 -a new_anno.json
+```
+Docker:
+```
+sudo docker run -it trompa-emotion retrain_model.py -i 827 -a new_anno.json
 ```
 
 #### Pretraining a model

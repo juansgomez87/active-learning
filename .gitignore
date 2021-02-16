@@ -6,6 +6,7 @@ active_trompa_off.py
 deam_classifier.py
 
 active_learner/
+data/*
 
 models/pretrained/cris/
 models/pretrained/classifier_rf.it_0.pkl

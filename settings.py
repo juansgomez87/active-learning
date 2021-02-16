@@ -8,7 +8,7 @@ Licensed under ???
 """
 path_models = './models/pretrained'
 path_models_users = './models/users'
-path_to_data = '/media/hoodoochild/DATA/datasets/trompa-me'
+path_to_data = './data'
 # trompa data
 path_to_audio = '{}/audio'.format(path_to_data)
 path_to_feats = '{}/feats'.format(path_to_data)

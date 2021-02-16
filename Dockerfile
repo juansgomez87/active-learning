@@ -15,3 +15,7 @@ RUN pip3 install -r /tmp/requirements.txt
 RUN mkdir /code
 COPY . /code
 WORKDIR /code
+
+CMD ["/code/create_user.py", "/code/extract_features.py", "/code/predict_emotion.py", "/code/get_hard_tracks.py", "/code/retrain_model.py"]
+
+ENTRYPOINT ["python3"]

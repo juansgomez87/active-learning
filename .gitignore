@@ -7,6 +7,7 @@ deam_classifier.py
 
 active_learner/
 data/*
+!data/.gitkeep
 
 models/pretrained/cris/
 models/pretrained/classifier_rf.it_0.pkl

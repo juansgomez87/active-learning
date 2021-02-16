@@ -24,7 +24,7 @@ python3 create_user.py -i 827
 ```
 Docker:
 ```
-sudo docker run -it trompa-emotion create_user.py -i 828
+sudo docker run -it trompa-emotion create_user.py -i 827
 ```
 
 #### Extract features from audio:

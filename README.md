@@ -24,7 +24,7 @@ python3 create_user.py -i 827
 ```
 Docker:
 ```
-sudo docker run -it trompa-emotion create_user.py -i 827
+sudo docker run -it -v $(pwd)/models:/code/models trompa-emotion create_user.py -i 827
 ```
 
 #### Extract features from audio:
@@ -76,7 +76,7 @@ python3 get_hard_tracks.py -i 827 -q 10
 ```
 Docker:
 ```
-sudo docker run -it trompa-emotion get_hard_tracks.py -i 827 -q 10
+sudo docker run -it -v $(pwd)/models:/code/models trompa-emotion get_hard_tracks.py -i 827 -q 10
 ```
 
 #### Re-train model:
@@ -93,7 +93,7 @@ python3 retrain_model.py -i 827 -a new_anno.json
 ```
 Docker:
 ```
-sudo docker run -it trompa-emotion retrain_model.py -i 827 -a new_anno.json
+sudo docker run -it -v $(pwd)/models:/code/models trompa-emotion retrain_model.py -i 827 -a new_anno.json
 ```
 
 #### Pretraining a model

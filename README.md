@@ -7,7 +7,7 @@ The TROMPA-MER system offers five functions: create a new user, extract features
 
 In order to build the Docker container use:
 ```
-sudo docker build -t trompa-emotion .
+sudo docker build -t trompa-mer .
 ```
 
 #### Create a user model:
@@ -24,7 +24,7 @@ python3 create_user.py -i 827
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/models:/code/models trompa-emotion create_user.py -i 827
+sudo docker run -it -v $(pwd)/models:/code/models trompa-mer create_user.py -i 827
 ```
 
 #### Extract features from audio:
@@ -41,7 +41,7 @@ python3 extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.cs
 ```
 Docker:
 ```
-sudo docker run -it trompa-emotion extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.csv
+sudo docker run -it trompa-mer extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.csv
 ```
 
 #### Predict emotion:
@@ -58,7 +58,7 @@ python3 predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/te
 ```
 Docker:
 ```
-sudo docker run -it trompa-emotion predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
+sudo docker run -it trompa-mer predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
 ```
 
 #### Get songs to be annotated
@@ -76,7 +76,7 @@ python3 get_hard_tracks.py -i 827 -q 10
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/models:/code/models trompa-emotion get_hard_tracks.py -i 827 -q 10
+sudo docker run -it -v $(pwd)/models:/code/models trompa-mer get_hard_tracks.py -i 827 -q 10
 ```
 
 #### Re-train model:
@@ -93,7 +93,7 @@ python3 retrain_model.py -i 827 -a new_anno.json
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/models:/code/models trompa-emotion retrain_model.py -i 827 -a new_anno.json
+sudo docker run -it -v $(pwd)/models:/code/models trompa-mer retrain_model.py -i 827 -a new_anno.json
 ```
 
 #### Pretraining a model

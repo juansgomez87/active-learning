@@ -1,5 +1,8 @@
 # TROMPA Music Emotion Recognition
 
+## Description
+The idea of using active learning for music emotion recognition is to allow the classification models to improve with new annotations from particular users. In general, we implemented the strategy of query by committee in which 5 classification models are used to produce prediction probabilities of data instances which have not been annotated. In short, uncertainty sampling using entropy is used over the prediction probabilities of all classifiers, in order to measure the uncertainty produced by particular predictions: instances with low entropy are assumed to be the most informative, while low entropy highlights the least informative instances that should be annotated by our users. 
+
 ## Usage
 The TROMPA-MER system offers five functions: create a new user, extract features from audio, predict an emotion from the features, get songs to be annotated, and retrain a model for a particular user. To start download the data from [here](https://drive.google.com/file/d/1ZsAKCXgfqNOSyD58ZF1sVKjbQ3hWBfGf/view?usp=sharing), and extract all the files inside the `data` directory. 
 
@@ -41,7 +44,7 @@ python3 extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.cs
 ```
 Docker:
 ```
-sudo docker run -it trompa-mer extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.csv
+sudo docker run -it -v $(pwd)/test_audio/test.wav:/test.wav -v $(pwd)/test_feats/:/outdir trompa-mer extract_features.py -i /test.wav -o /outdir/test_wav.csv
 ```
 
 #### Predict emotion:
@@ -58,7 +61,7 @@ python3 predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/te
 ```
 Docker:
 ```
-sudo docker run -it trompa-mer predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
+sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/test_predictions/:/outdir trompa-mer predict_emotion.py -i /test_wav.csv -o /outdir/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
 ```
 
 #### Get songs to be annotated

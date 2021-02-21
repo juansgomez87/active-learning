@@ -101,7 +101,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.input.lower().endswith('.csv') is False:
-        print('Output must be a csv file!')
+        print('Input must be a csv file!')
         sys.exit(0)
     elif args.output.lower().endswith('.json') is False:
         print('Output must be a json file!')

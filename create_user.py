@@ -12,13 +12,12 @@ import argparse
 import shutil
 from settings import *
 
-import pdb
 
 def create_user(u_id):
     # create users folder
     user_path = os.path.join(path_models_users, str(u_id))
     try:
-        os.mkdir(user_path)
+        os.makedirs(user_path)
     except FileExistsError:
         print('User has already been created!')
         sys.exit(0)

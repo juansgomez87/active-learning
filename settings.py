@@ -6,9 +6,17 @@ Settings
 Copyright 2021, J.S. Gómez-Cañón
 Licensed under ???
 """
+import os
+
 path_models = './models/pretrained'
-path_models_users = './models/users'
-path_to_data = './data'
+if 'TPL_INTERNAL_DATA_DIRECTORY' in os.environ:
+    path_models_users = os.path.join(os.environ['TPL_INTERNAL_DATA_DIRECTORY'], 'models', 'users')
+    path_to_data = os.path.join(os.environ['TPL_INTERNAL_DATA_DIRECTORY'], 'data')
+else:
+    path_models_users = './models/users'
+    path_to_data = './data'
+
+
 # trompa data
 path_to_audio = '{}/audio'.format(path_to_data)
 path_to_feats = '{}/feats'.format(path_to_data)

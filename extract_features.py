@@ -27,9 +27,9 @@ def extract_features(in_f, out_f):
         sys.exit(0)
 
     # process with open smile INTERSPEECH 2013 ComParE
-    subprocess.run(['./opensmile-2.3.0/SMILExtract',
+    subprocess.run(['./opensmile-3.0-linux-x64/bin/SMILExtract',
                  '-C',
-                 './opensmile-2.3.0/config/IS13_ComParE.conf',
+                 './opensmile-3.0-linux-x64/config/is09-13/IS13_ComParE.conf',
                  '-I',
                  tmp_file,
                  '-lldcsvoutput',

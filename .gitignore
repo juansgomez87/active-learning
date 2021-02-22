@@ -6,6 +6,8 @@ active_trompa_off.py
 deam_classifier.py
 
 active_learner/
+__pycache__/
+opensmile-2.3.0/
 data/*
 !data/.gitkeep
 

@@ -27,7 +27,7 @@ python3 create_user.py -i 827
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/models:/code/models trompa-mer create_user.py -i 827
+sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 create_user.py -i 827
 ```
 
 #### Extract features from audio:
@@ -44,7 +44,7 @@ python3 extract_features.py -i ./test_audio/test.mp3 -o ./test_feats/test_mp3.cs
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/test_audio/test.wav:/test.wav -v $(pwd)/test_feats/:/outdir trompa-mer extract_features.py -i /test.wav -o /outdir/test_wav.csv
+sudo docker run -it -v $(pwd)/test_audio/test.wav:/test.wav -v $(pwd)/test_feats/:/outdir trompa-mer python3 extract_features.py -i /test.wav -o /outdir/test_wav.csv
 ```
 
 #### Predict emotion:
@@ -61,7 +61,7 @@ python3 predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/te
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/test_predictions/:/outdir trompa-mer predict_emotion.py -i /test_wav.csv -o /outdir/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
+sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/test_predictions/:/outdir trompa-mer python3 predict_emotion.py -i /test_wav.csv -o /outdir/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
 ```
 
 #### Get songs to be annotated
@@ -79,7 +79,7 @@ python3 get_hard_tracks.py -i 827 -q 10
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/models:/code/models trompa-mer get_hard_tracks.py -i 827 -q 10
+sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 get_hard_tracks.py -i 827 -q 10
 ```
 
 #### Re-train model:
@@ -96,7 +96,7 @@ python3 retrain_model.py -i 827 -a new_anno.json
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/models:/code/models trompa-mer retrain_model.py -i 827 -a new_anno.json
+sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 retrain_model.py -i 827 -a new_anno.json
 ```
 
 #### Pretraining a model

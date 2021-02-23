@@ -7,7 +7,7 @@ deam_classifier.py
 
 active_learner/
 __pycache__/
-opensmile-2.3.0/
+opensmile-3.0-linux-x64/*
 data/*
 !data/.gitkeep
 

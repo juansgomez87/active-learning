@@ -109,9 +109,13 @@ if __name__ == "__main__":
     elif os.path.exists(args.input) is False:
         print('Select existing input file!')
         sys.exit(0)
+    elif args.model == 'default':
+        print('Selecting default model file!')
+        args.model = './models/pretrained/classifier_xgb.it_0.pkl'
     elif os.path.exists(args.model) is False:
         print('Select existing model file!')
         sys.exit(0)
+
 
     emo_pred = EmotionPredictor(args.input, args.output, args.model)
 

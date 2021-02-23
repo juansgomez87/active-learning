@@ -11,20 +11,5 @@ opensmile-2.3.0/
 data/*
 !data/.gitkeep
 
-models/pretrained/cris/
-models/pretrained/finetuned/
-models/pretrained/classifier_rf.it_0.pkl
-models/pretrained/classifier_rf.it_1.pkl
-models/pretrained/classifier_rf.it_2.pkl
-models/pretrained/classifier_rf.it_3.pkl
-models/pretrained/classifier_rf.it_4.pkl
-models/pretrained/finetune_xgb.it_0.pkl
-models/pretrained/finetune_xgb.it_1.pkl
-models/pretrained/finetune_xgb.it_2.pkl
-models/pretrained/finetune_xgb.it_3.pkl
-models/pretrained/finetune_xgb.it_4.pkl
-models/pretrained/finetune_live_xgb.it_0.pkl
-models/pretrained/finetune_live_xgb.it_1.pkl
-models/pretrained/finetune_live_xgb.it_2.pkl
-models/pretrained/finetune_live_xgb.it_3.pkl
-models/pretrained/finetune_live_xgb.it_4.pkl
+models/pretrained/live_experiments/*
+models/pretrained/off_experiments/*

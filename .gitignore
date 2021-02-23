@@ -12,6 +12,7 @@ data/*
 !data/.gitkeep
 
 models/pretrained/cris/
+models/pretrained/finetuned/
 models/pretrained/classifier_rf.it_0.pkl
 models/pretrained/classifier_rf.it_1.pkl
 models/pretrained/classifier_rf.it_2.pkl

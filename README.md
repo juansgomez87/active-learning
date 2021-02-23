@@ -1,7 +1,7 @@
 # TROMPA Music Emotion Recognition
 
 ## Description
-The idea of using active learning for music emotion recognition is to allow the classification models to improve with new annotations from particular users. In general, we implemented the strategy of query by committee in which 5 classification models are used to produce prediction probabilities of data instances which have not been annotated. In short, uncertainty sampling using entropy is used over the prediction probabilities of all classifiers, in order to measure the uncertainty produced by particular predictions: instances with low entropy are assumed to be the most informative, while low entropy highlights the least informative instances that should be annotated by our users. 
+The idea of using active learning for music emotion recognition is to allow the classification models to improve with new annotations from particular users. In general, we implemented the strategy of query by committee in which N classification models are used to produce prediction probabilities of data instances which have not been annotated. In short, uncertainty sampling using entropy is used over the prediction probabilities of all classifiers, in order to measure the uncertainty produced by particular predictions: instances with low entropy are assumed to be the most informative, while low entropy highlights the least informative instances that should be annotated by our users. 
 
 ## Usage
 Clone this repository:
@@ -121,6 +121,9 @@ python3 deam_classifier.py -cv 5 -m xgb
 
 
 ## Note:
+A small change was made for the Xgboost library in order to retrain the models. If you are running all the files locally, ou can copy the `sklearn.py` file to the `/usr/local/lib/python3.6/site-packages/xgboost` directory where xgboost was installed. 
+If you use the Docker container, the file will be updated automatically.
+
 Change in xgboost/sklearn.py Line 853:
 ```
         else:

@@ -73,7 +73,7 @@ python3 predict_emotion.py -i ./test_feats/test_wav.csv -o ./test_predictions/te
 ```
 Docker:
 ```
-sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/test_predictions/:/outdir trompa-mer python3 predict_emotion.py -i /test_wav.csv -o /outdir/test_wav.json -m ./models/pretrained/classifier_xgb.it_0.pkl
+sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/test_predictions/:/outdir trompa-mer python3 predict_emotion.py -i /test_wav.csv -o /outdir/test_wav.json -m default
 ```
 
 #### Get songs to be annotated

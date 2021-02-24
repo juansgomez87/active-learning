@@ -51,8 +51,13 @@ class Retrainer():
             self.it_num = self.pool_info['iteration']
             len_query = len(self.pool_info['queried'])
             len_anno = len(self.anno_dict)
+            set_pool = set(self.pool_info['queried'])
+            set_anno = set(list(self.anno_dict.keys()))
             if len_anno != len_query:
                 print('Number of annotations does not fit number of queries!')
+                sys.exit()
+            elif set_pool != set_anno:
+                print('Input annotations do not fit get_hard_tracks output!')
                 sys.exit()
 
         else:

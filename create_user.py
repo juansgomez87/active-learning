@@ -23,7 +23,9 @@ def create_user(u_id):
         sys.exit(0)
 
     # copy initial models
-    pre_models = [os.path.join(root, f) for root, dirs, files in os.walk(path_models) for f in files if f.lower().endswith('.pkl')]
+    pre_models = [os.path.join(root, f) for root, dirs, files in os.walk(path_models)
+                  for f in files if (f.lower().endswith('.pkl') and 
+                  os.path.join(root, f).count(os.path.sep) <= path_models.count(os.path.sep) + 1)]
     cp_models = [f.replace(path_models, user_path) for f in pre_models]
 
     for in_f, out_f in zip(pre_models, cp_models):

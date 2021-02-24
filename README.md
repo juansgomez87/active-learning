@@ -126,7 +126,7 @@ python3 deam_classifier.py -cv 5 -m xgb
 
 
 ## Note:
-A small change was made for the Xgboost library in order to retrain the models. If you are running all the files locally, ou can copy the `sklearn.py` file to the `/usr/local/lib/python3.6/site-packages/xgboost` directory where xgboost was installed. 
+A small change was made for the [Xgboost library](https://github.com/dmlc/xgboost/) in order to retrain the models. Xgboost is licenced under an Apache License 2.0. If you are running all the files locally, ou can copy the `sklearn.py` file to the `/usr/local/lib/python3.6/site-packages/xgboost` directory where xgboost was installed. 
 If you use the Docker container, the file will be updated automatically.
 
 Change in xgboost/sklearn.py Line 853:

@@ -77,7 +77,7 @@ sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/te
 ```
 
 #### Get songs to be annotated
-Requirement: all features from the data set have to be previously extracted and saved in the `path_to_data` folder in `settings.py`.
+_Requirement:_ all features from the data set have to be previously extracted and saved in the `path_to_data` folder in `settings.py`.
 - Input: user ID
 - Output: list of songs to be annotated
 
@@ -95,6 +95,7 @@ sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 get_hard_tr
 ```
 
 #### Re-train model:
+_Requirement:_ To run this code, get_hard_tracks must be ran previously.
 - Input: list of annotations from user X, and iteration number
 - Output: retrained model for user X.
 
@@ -102,10 +103,14 @@ Usage:
 ```
 python3 retrain_model.py -i USER_ID -a ANNOTATIONS
 ```
-Example:
+Examples new_anno.json, new_anno_2.json, and new_anno_3.json:
 ```
 python3 retrain_model.py -i 827 -a new_anno.json
+python3 retrain_model.py -i 827 -a new_anno_2.json
+python3 retrain_model.py -i 827 -a new_anno_3.json
 ```
+This last example will show an error since the annotated tracks do not fit the tracks that were calculated with get_hard_tracks.
+
 Docker:
 ```
 sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 retrain_model.py -i 827 -a new_anno.json

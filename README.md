@@ -77,7 +77,7 @@ sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/te
 ```
 
 #### Get songs to be annotated
-_Requirement:_ all features from the data set have to be previously extracted and saved in the `path_to_data` folder in `settings.py`.
+_Requirement:_ all features from the TROMPA ME dataset have to be previously saved in the `path_to_data` folder in `settings.py`. 
 - Input: user ID
 - Output: list of songs to be annotated
 

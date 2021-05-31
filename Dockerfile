@@ -1,4 +1,6 @@
-FROM python:3.6.9
+#FROM python:3.6.9
+FROM python:3.8.5
+
 
 LABEL maintainer="juansebastian.gomez@upf.edu"
 

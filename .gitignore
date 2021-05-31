@@ -4,8 +4,10 @@ active_trompa_live.py
 active_trompa_live_old.py
 active_trompa_off.py
 deam_classifier.py
+trompace.ini
 
 active_learner/
+venv/
 __pycache__/
 opensmile-3.0-linux-x64/*
 data/*

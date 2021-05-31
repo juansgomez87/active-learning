@@ -18,6 +18,10 @@ import pdb
 import joblib
 from scipy.stats import entropy
 from sklearn.preprocessing import StandardScaler
+# import trompace.connection
+from trompace.config import config
+from trompace.client.client_itemlist import create_itemlist
+
 
 
 from settings import *
@@ -76,7 +80,18 @@ class ConsensusEntropyCalculator():
         df_all_feats.to_csv(dataset_fn, sep=';', index=False)
         return df_all_feats
 
-
+    def send_itemlist(self, it_l):
+        name = 'get_hard_tracks'
+        description = 'get_hard_tracks for MER'
+        ordered = True
+        contributor ='MTG - MER algorithm'
+        creator = 'Juan S. Gómez'
+        create_itemlist(name=name,
+                        description=description,
+                        ordered=ordered,
+                        contributor=contributor,
+                        creator=creator,
+                        values=it_l)
 
     def run(self):
         # predict probabilities for each model
@@ -140,9 +155,14 @@ if __name__ == "__main__":
         sys.exit(0)
 
 
+    config.load('trompace.ini')
+
     ce_en_cal = ConsensusEntropyCalculator(args.queries, path_to_models)
 
     q_songs = ce_en_cal.run()
+
+    ce_en_cal.send_itemlist(q_songs)
+
 
     print('Songs to annotate: {}'.format(q_songs))
 

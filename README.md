@@ -115,7 +115,7 @@ Example:
 python3 get_annotations.py -i 15479 -ao 130534fe-dc88-4adf-becc-99b9e7dda4ed
 ```
 
-Docker (REVISE):
+Docker:
 
 ```
 sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 get_annotations.py -i 15479 -ao 130534fe-dc88-4adf-becc-99b9e7dda4ed

@@ -6,6 +6,7 @@ attrs==21.2.0
 certifi==2020.12.5
 chardet==4.0.0
 click==7.1.2
+graphql-core>=3
 idna==2.10
 joblib==1.0.0
 multidict==5.1.0
@@ -19,7 +20,7 @@ scikit-learn==0.24.1
 scipy==1.5.4
 six==1.15.0
 threadpoolctl==2.1.0
-trompace-client==0.4
+trompace-client==0.5
 typing-extensions==3.10.0.0
 urllib3==1.26.5
 websockets==9.1

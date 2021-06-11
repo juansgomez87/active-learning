@@ -101,7 +101,7 @@ sudo docker run -it -v $(pwd)/test_feats/test_wav.csv:/test_wav.csv -v $(pwd)/te
 #### Get annotation from CE:
 
 -   Input: user ID and audio_object CE ID
--   Output: string { MW_ID : quadrant}
+-   Output: string { MW_ID : quadrant }
 
 Usage:
 

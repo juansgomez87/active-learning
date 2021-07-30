@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Emotion algorithm pre-trainer using DEAM data
+Emotion algorithm to predict an emotion quadrant
 
 Copyright 2021, J.S. Gómez-Cañón
-Licensed under ???
+Licensed under GNU AFFERO GENERAL PUBLIC LICENSE
 """
 import argparse
 import numpy as np

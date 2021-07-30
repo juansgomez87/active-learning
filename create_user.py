@@ -4,7 +4,7 @@ Emotion algorithm feature extractor
 
 
 Copyright 2021, J.S. Gómez-Cañón
-Licensed under ???
+Licensed under GNU AFFERO GENERAL PUBLIC LICENSE
 """
 import os
 import sys

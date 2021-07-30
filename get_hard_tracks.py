@@ -4,7 +4,7 @@ Emotion algorithm to to fine-tune on user annotations.
 
 
 Copyright 2021, J.S. Gómez-Cañón
-Licensed under ???
+Licensed under GNU AFFERO GENERAL PUBLIC LICENSE
 """
 
 import argparse

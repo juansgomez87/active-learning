@@ -11,6 +11,7 @@ venv/
 __pycache__/
 opensmile-3.0-linux-x64/*
 data/*
+!data/mapping_mw_2_ce.csv
 !data/.gitkeep
 
 models/pretrained/live_experiments/*

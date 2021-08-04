@@ -16,11 +16,12 @@ import os
 import sys
 import pdb
 import joblib
+import time
 from scipy.stats import entropy
 from sklearn.preprocessing import StandardScaler
 
-from trompace.config import config
-from trompace.client.client_itemlist import create_itemlist
+# from trompace.config import config
+# from trompace.client.client_itemlist import create_itemlist
 
 
 from settings import *
@@ -118,13 +119,15 @@ class ConsensusEntropyCalculator():
                      'next_pool': next_pool,
                      'queried': q_songs}
         with open(self.out_f, 'w') as f:
-            json.dump(json_out, f)
+            json.dump(json_out, f, indent=4)
         return q_songs
 
 
 if __name__ == "__main__":
     # usage: python3 get_hard_tracks.py -i USER_ID -q NUM_TRACKS 
     # example: python3 get_hard_tracks.py -i 827 -q 10 
+    # Average time: Process lasted 6.547390699386597 seconds!
+    start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('-i',
                         '--input_user',
@@ -144,7 +147,6 @@ if __name__ == "__main__":
 
 
     try:
-        # TODO: user ids are created as numbers, will this change?
         user_id = int(args.input_user)
         path_to_models = os.path.join(path_models_users, str(user_id))
         if os.path.exists(path_to_models) is False:
@@ -155,13 +157,14 @@ if __name__ == "__main__":
         sys.exit(0)
 
 
-    config.load('trompace.ini')
+    # config.load('trompace.ini')
 
     ce_en_cal = ConsensusEntropyCalculator(args.queries, path_to_models)
 
     q_songs = ce_en_cal.run()
 
-    ce_en_cal.send_itemlist(q_songs, user_id)
-
-    print('Songs to annotate: {}'.format(q_songs))
+    # ce_en_cal.send_itemlist(q_songs, user_id)
+    print(q_songs)
+    # print('Songs to annotate: {}'.format(q_songs))
+    # print('Process lasted {} seconds!'.format((time.time()-start)))
 

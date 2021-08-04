@@ -18,7 +18,7 @@ import pdb
 import joblib
 import xgboost as xgb
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-
+import time
 
 from settings import *
 
@@ -109,7 +109,9 @@ class Retrainer():
 
 if __name__ == "__main__":
     # usage: python3 retrain_model.py -i USER_ID -a ANNOTATIONS
-    # example: python3 retrain_model.py -i 827 -a ./models/users/827/new_anno.json
+    # example: python3 retrain_model.py -i 827 -a new_anno.json
+    # Average time: Process lasted 6 - 8.637507200241089 seconds!
+    start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('-i',
                         '--input_user',
@@ -144,5 +146,6 @@ if __name__ == "__main__":
 
     retrain.run()
 
+    print('Process lasted {} seconds!'.format((time.time()-start)))
 
 

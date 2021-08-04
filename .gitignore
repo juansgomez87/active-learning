@@ -6,7 +6,7 @@ active_trompa_off.py
 deam_classifier.py
 trompace.ini
 
-active_learner/
+trompa_venv/
 venv/
 __pycache__/
 opensmile-3.0-linux-x64/*

@@ -10,6 +10,7 @@ import os
 import sys
 import argparse
 import shutil
+import time
 from settings import *
 
 
@@ -36,6 +37,8 @@ def create_user(u_id):
 if __name__ == "__main__":
     # usage: python3 create_user.py -i USER_ID
     # example: python3 create_user.py -i 827
+    # average time: Process lasted 0.899834394454956 seconds!
+    start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('-i',
                         '--input_user',
@@ -53,3 +56,4 @@ if __name__ == "__main__":
         sys.exit(0)
 
     create_user(user_id)
+    print('Process lasted {} seconds!'.format((time.time()-start)))

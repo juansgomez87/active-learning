@@ -29,3 +29,7 @@ RUN chmod 755 /code/opensmile-3.0-linux-x64/bin/SMILExtract
 # Small modification to allow retraining with incomplete classes. See note in documentation.
 
 COPY xgboost/sklearn.py /usr/local/lib/python3.6/site-packages/xgboost/
+
+EXPOSE 5000
+
+CMD ["python3", "/code/flask_service.py"]

@@ -36,7 +36,9 @@ user_id = args.u_id
 # # no docker
 # url = 'http://192.168.1.134:5000/api/v0.1/users/{}'.format(user_id)
 # # with docker
-url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
+# url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
+# # with mirlab-web1.s.upf.edu
+url = 'http://localhost:5000/api/v0.1/users/{}'.format(user_id)
 q_class = ['Q1', 'Q2', 'Q3', 'Q4']
 
 # testing user creation

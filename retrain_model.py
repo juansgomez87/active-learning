@@ -31,7 +31,8 @@ class Retrainer():
         """
         self.anno_dict = self.load_json(anno_dict)
         self.path_to_feats = path_to_feats
-        self.out_f = os.path.join(path_to_models, 'pool_data.json')
+        mode = [d for root, dirs, files in os.walk(path_to_models) for d in dirs][0]
+        self.out_f = os.path.join(path_to_models, mode, 'pool_data.json')
         self.mod_list = [os.path.join(root, f) for root, dirs, files in os.walk(path_to_models) for f in files if f.lower().endswith('.pkl')]
         self.dict_class = {0: 'Q1', 1: 'Q2', 2: 'Q3', 3: 'Q4'}
 
@@ -59,6 +60,10 @@ class Retrainer():
             elif set_pool != set_anno:
                 print('Input annotations do not fit get_hard_tracks output!')
                 sys.exit()
+            self.pool_info['log'].append({self.it_num: self.anno_dict})
+
+            with open(self.out_f, 'w') as f:
+                json.dump(self.pool_info, f, indent=4)
 
         else:
             print('Pooling file not created, run get_hard_tracks.py first!')
@@ -95,7 +100,7 @@ class Retrainer():
     def run(self):
         # re train each model
         for i, mod_fn in enumerate(self.mod_list):
-            print('Performing retraining for model {} ({}/{})'.format(mod_fn, i, len(self.mod_list) - 1))
+            # print('Performing retraining for model {} ({}/{})'.format(mod_fn, i, len(self.mod_list) - 1))
             mod = joblib.load(mod_fn)
             if mod_fn.find('_xgb') > 0:
                 # TODO: check metric evaluation
@@ -110,7 +115,6 @@ class Retrainer():
 if __name__ == "__main__":
     # usage: python3 retrain_model.py -i USER_ID -a ANNOTATIONS
     # example: python3 retrain_model.py -i 827 -a new_anno.json
-    # Average time: Process lasted 6 - 8.637507200241089 seconds!
     start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('-i',
@@ -146,6 +150,6 @@ if __name__ == "__main__":
 
     retrain.run()
 
-    print('Process lasted {} seconds!'.format((time.time()-start)))
+    # print('Process lasted {} seconds!'.format((time.time()-start)))
 
 

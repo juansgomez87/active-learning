@@ -19,17 +19,21 @@ import glob
 import subprocess
 import os
 import json
+from dotenv import load_dotenv
 
 from settings import *
-import pdb
+from create_user import create_user
+from get_hard_tracks import ConsensusEntropyCalculator
+from retrain_model import Retrainer
+
+load_dotenv()
 
 app = flask.Flask(__name__)
 auth = HTTPBasicAuth()
 app.config["DEBUG"] = True
 
 users = {
-    "juan": generate_password_hash("tide123"),
-    "nicolas": generate_password_hash("tide123")
+    os.environ['USER_API']: generate_password_hash(os.environ['PASS_API']),
 }
 
 @auth.verify_password
@@ -47,7 +51,7 @@ def home():
 @auth.login_required
 def user(user_id):
     list_users = [_.split('/')[3] for _ in glob.glob(path_models_users+ '/*/')]
-    # 127.0.0.1:5000/api/v0.1/users/827
+    path_user = os.path.join(path_models_users, user_id)
     if request.method == 'GET':
         # check if user exists
         if user_id in list_users:
@@ -58,26 +62,20 @@ def user(user_id):
     if request.method == 'POST':
         data = request.get_json()
         if data['method'] == 'create_user':
+            mode = data['data']
             if user_id in list_users:
                 return 'User {} exists, not creating path!'.format(user_id)
             else:
-                subprocess.run(['python3',
-                                'create_user.py',
-                                '-i',
-                                user_id])
-                return 'User {} was created!'.format(user_id)
+                create_user(user_id, mode)
+
+                return 'User {} was created with mode {}!'.format(user_id, mode)
 
         elif data['method'] == 'get_hard_tracks':
             if user_id not in list_users:
                 return 'User {} does not exist, create user first!'.format(user_id)
             else:
-                lines = subprocess.run(['python3',
-                                'get_hard_tracks.py',
-                                '-i',
-                                user_id,
-                                '-q',
-                                '10'], stdout=subprocess.PIPE).stdout.splitlines()
-                q_list = eval(lines[-1])
+                mode = [d for root, dirs, files in os.walk(os.path.join(path_models_users, user_id)) for d in dirs][0]
+                q_list = ConsensusEntropyCalculator(10, path_user).run()
 
                 return jsonify(q_list)
 
@@ -86,24 +84,14 @@ def user(user_id):
                 return 'User {} does not exist, create user first!'.format(user_id)
             else:
                 anno = data['data']
-                path_user = os.path.join(path_models_users, user_id)
-                json_fn = path_user + '/last_anno.json'
+                mode = [d for root, dirs, files in os.walk(os.path.join(path_models_users, user_id)) for d in dirs][0]
+                json_fn = os.path.join(path_user, mode, 'last_anno.json')
                 with open(json_fn, 'w') as f:
                     json.dump(anno, f, indent=4)
-
-                lines = subprocess.run(['python3',
-                                'retrain_model.py',
-                                '-i',
-                                user_id,
-                                '-a',
-                                json_fn], stdout=subprocess.PIPE).stdout.splitlines()
+                Retrainer(json_fn, path_user).run()
 
                 return 'Finished retraining models for user {}'.format(user_id)
 
 
-
-
 if __name__ == "__main__":
-
-
-    app.run()
+    app.run(host='0.0.0.0')

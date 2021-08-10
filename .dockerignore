@@ -3,5 +3,6 @@ __pycache__
 active_learner/
 models/pretrained/live_experiments/*
 models/pretrained/off_experiments/*
-active_learner/
+trompa_venv/
+ini_files/
 opensmile-3.0-linux-x64/

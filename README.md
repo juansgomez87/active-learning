@@ -21,7 +21,7 @@ Before starting, two downloads are needed:
 
 2. The features used to train our models are the IS13 feature set which are obtained using the OpenSmile toolbox. Download [this compiled version](https://github.com/audeering/opensmile/releases/download/v3.0.0/opensmile-3.0-linux-x64.tar.gz) and extract it to the `active-learning` home directory. Otherwise, compiling the Docker container will do this automatically for you.
 
-#### To build with Docker:
+### To build with Docker:
 
 In order to build the Docker container use:
 
@@ -29,27 +29,47 @@ In order to build the Docker container use:
 sudo docker build -t trompa-mer .
 ```
 
+Then use the Docker file to start the Flask app:
+```
+sudo docker run -it -v "$(pwd)"/models:/code/models trompa-mer
+```
+
+### To run with a virtual environment:
+
+Create the virtual environment:
+```
+python3 -m venv trompa-venv
+source trompa-venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+Copy the `sklearn.py` into the virtual environment library:
+```
+cp xgboost/sklearn.py trompa-venv/lib/python3.8/site-packages/xgboost
+```
+
+
 #### Create a user model:
 
--   Input: user ID
+-   Input: user ID, mode ['mc', 'hc', 'mix', 'rand']
 -   Output: user’s folder to save models
 
 Usage:
 
 ```
-python3 create_user.py -i USER_ID
+python3 create_user.py -i USER_ID -m MODE
 ```
 
 Example:
 
 ```
-python3 create_user.py -i 827
+python3 create_user.py -i 827 -m mc
 ```
 
 Docker:
 
 ```
-sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 create_user.py -i 827
+sudo docker run -it -v $(pwd)/models:/code/models trompa-mer python3 create_user.py -i 827 -m mc
 ```
 
 #### Extract features from audio:
@@ -187,7 +207,7 @@ python3 deam_classifier.py -cv 5 -m xgb
 
 ## Note:
 
-A small change was made for the [Xgboost library](https://github.com/dmlc/xgboost/) in order to retrain the models. Xgboost is licenced under an Apache License 2.0. If you are running all the files locally, ou can copy the `sklearn.py` file to the `/usr/local/lib/python3.6/site-packages/xgboost` directory where xgboost was installed.
+A small change was made for the [Xgboost library](https://github.com/dmlc/xgboost/) in order to retrain the models. Xgboost is licenced under an Apache License 2.0. If you are running all the files locally, you can copy the `sklearn.py` file to the `/usr/local/lib/python3.8/site-packages/xgboost` directory where xgboost was installed.
 If you use the Docker container, the file will be updated automatically.
 
 Change in xgboost/sklearn.py Line 853:

@@ -4,12 +4,17 @@ import pdb
 import argparse
 import random
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-u_id',
                     '--user_id',
                     help='Input user_id to test post functions',
                     action='store',
+                    type=int,
                     required=True,
                     dest='u_id')
 parser.add_argument('-it',
@@ -19,33 +24,30 @@ parser.add_argument('-it',
                     type=int,
                     required=True,
                     dest='it')
-parser.add_argument('-user',
-                    '--user',
-                    help='Input username',
+parser.add_argument('-mode',
+                    '--mode',
+                    help='Input mode [mc, hc, mix, rand]',
                     action='store',
                     required=True,
-                    dest='user')
-parser.add_argument('-pass',
-                    '--password',
-                    help='Input password',
-                    action='store',
-                    required=True,
-                    dest='pw')
+                    dest='mode')
 args = parser.parse_args()
 
 user_id = args.u_id
-url = 'http://127.0.0.1:5000/api/v0.1/users/{}'.format(user_id)
+# # no docker
+# url = 'http://192.168.1.134:5000/api/v0.1/users/{}'.format(user_id)
+# # with docker
+url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
 q_class = ['Q1', 'Q2', 'Q3', 'Q4']
 
 # testing user creation
 print('Testing user creation with API!')
 # print('json request:')
 dt_te = {'method': 'create_user',
-         'data': {}}
+         'data': args.mode}
 print(dt_te)
 
 start = time.time()
-x = requests.post(url, json=dt_te, auth=(args.user, args.pw))
+x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
 print(x.text)
 print('--- Process lasted {} seconds'.format(time.time() - start))
 
@@ -58,7 +60,7 @@ for i in range(args.it):
 	print(dt_te)
 
 	start = time.time()
-	x = requests.post(url, json=dt_te, auth=(args.user, args.pw))
+	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
 
 	data = x.json()
 	print('--- Process lasted {} seconds'.format(time.time() - start))
@@ -73,7 +75,7 @@ for i in range(args.it):
 	print(dt_te)
 
 	start = time.time()
-	x = requests.post(url, json=dt_te, auth=(args.user, args.pw))
+	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
 	print(x.text)
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 

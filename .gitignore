@@ -4,15 +4,17 @@ active_trompa_live.py
 active_trompa_live_old.py
 active_trompa_off.py
 deam_classifier.py
+test_post.py
 trompace.ini
+.env
 
-trompa_venv/
-venv/
+trompa-venv/
+ini_files/
 __pycache__/
 opensmile-3.0-linux-x64/*
 data/*
+!data/data_09_08_2021.json
 !data/mapping_mw_2_ce.csv
 !data/.gitkeep
 
-models/pretrained/live_experiments/*
-models/pretrained/off_experiments/*
+

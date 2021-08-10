@@ -51,7 +51,6 @@ def home():
 @auth.login_required
 def user(user_id):
     list_users = [_.split('/')[3] for _ in glob.glob(path_models_users+ '/*/')]
-    print(list_users)
     path_user = os.path.join(path_models_users, user_id)
     if request.method == 'GET':
         # check if user exists

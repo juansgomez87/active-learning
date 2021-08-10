@@ -59,7 +59,7 @@ class ConsensusEntropyCalculator():
             self.it_num = 0
             self.log_list = []
 
-        print('Iteration number: {}'.format(self.it_num))
+        # print('Iteration number: {}'.format(self.it_num))
 
 
     def load_json(self, filename):

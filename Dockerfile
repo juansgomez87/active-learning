@@ -19,13 +19,17 @@ WORKDIR /code
 
 # Small modification to allow retraining with incomplete classes. See note in documentation.
 COPY xgboost/sklearn.py /usr/local/lib/python3.8/site-packages/xgboost/
+#COPY src/xgboost/sklearn.py /usr/local/lib/python3.8/site-packages/xgboost/
+
 
 RUN pip3 install --upgrade pip
 COPY ./requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache -r /tmp/requirements.txt
 
 COPY . /code
+#COPY ./src /code/src/
 
 EXPOSE 5000
 
 CMD ["python3", "/code/flask_service.py"]
+#CMD ["python3", "/code/src/flask_service.py"]

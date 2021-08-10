@@ -9,12 +9,11 @@ Licensed under GNU AFFERO GENERAL PUBLIC LICENSE
 import os
 
 path_models = './models/pretrained'
-if 'TPL_INTERNAL_DATA_DIRECTORY' in os.environ:
-    path_models_users = os.path.join(os.environ['TPL_INTERNAL_DATA_DIRECTORY'], 'models', 'users')
-    path_to_data = os.path.join(os.environ['TPL_INTERNAL_DATA_DIRECTORY'], 'data')
-else:
-    path_models_users = './models/users'
-    path_to_data = './data'
+
+path_models_users = './models/users'
+# ini_path = os.path.abspath('.')
+path_to_data = './data'
+# path_to_data = os.path.join(ini_path, 'data')
 
 # trompa data
 path_to_audio = '{}/audio'.format(path_to_data)

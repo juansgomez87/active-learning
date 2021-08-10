@@ -32,6 +32,7 @@ sudo docker build -t trompa-mer .
 Then use the Docker file to start the Flask app:
 ```
 sudo docker run -it -v "$(pwd)"/models:/code/models trompa-mer
+
 ```
 
 #### To run with a virtual environment:

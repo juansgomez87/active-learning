@@ -68,7 +68,7 @@ class Retrainer():
         else:
             print('Pooling file not created, run get_hard_tracks.py first!')
             sys.exit(0)
-        print('Current iteration number: {}'.format(self.it_num))
+        # print('Current iteration number: {}'.format(self.it_num))
 
 
     def load_json(self, filename):

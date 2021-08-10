@@ -51,6 +51,7 @@ def home():
 @auth.login_required
 def user(user_id):
     list_users = [_.split('/')[3] for _ in glob.glob(path_models_users+ '/*/')]
+    print(list_users)
     path_user = os.path.join(path_models_users, user_id)
     if request.method == 'GET':
         # check if user exists
@@ -91,6 +92,14 @@ def user(user_id):
                 Retrainer(json_fn, path_user).run()
 
                 return 'Finished retraining models for user {}'.format(user_id)
+
+        elif data['method'] == 'delete_user':
+            if user_id in list_users:
+                subprocess.run(['rm', '-r', path_user])
+                return 'User {} deleted!'.format(user_id)
+
+            else:
+                return 'Send correct user!'
 
 
 if __name__ == "__main__":

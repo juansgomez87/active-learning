@@ -81,3 +81,7 @@ for i in range(args.it):
 
 
 pdb.set_trace()
+dt_te = {'method': 'delete_user',
+         'data': args.mode}
+x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
+print(x.text)

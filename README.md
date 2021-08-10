@@ -4,7 +4,7 @@
 
 The idea of using active learning for music emotion recognition is to allow the classification models to improve with new annotations from particular users. In general, we implemented the strategy of query by committee in which N classification models are used to produce prediction probabilities of data instances which have not been annotated. In short, uncertainty sampling using entropy is used over the prediction probabilities of all classifiers, in order to measure the uncertainty produced by particular predictions: instances with low entropy are assumed to be the most informative, while low entropy highlights the least informative instances that should be annotated by our users.
 
-## Usage
+## Installation
 
 Clone this repository:
 
@@ -21,7 +21,7 @@ Before starting, two downloads are needed:
 
 2. The features used to train our models are the IS13 feature set which are obtained using the OpenSmile toolbox. Download [this compiled version](https://github.com/audeering/opensmile/releases/download/v3.0.0/opensmile-3.0-linux-x64.tar.gz) and extract it to the `active-learning` home directory. Otherwise, compiling the Docker container will do this automatically for you.
 
-### To build with Docker:
+#### To build with Docker:
 
 In order to build the Docker container use:
 
@@ -34,7 +34,7 @@ Then use the Docker file to start the Flask app:
 sudo docker run -it -v "$(pwd)"/models:/code/models trompa-mer
 ```
 
-### To run with a virtual environment:
+#### To run with a virtual environment:
 
 Create the virtual environment:
 ```
@@ -48,7 +48,7 @@ Copy the `sklearn.py` into the virtual environment library:
 cp xgboost/sklearn.py trompa-venv/lib/python3.8/site-packages/xgboost
 ```
 
-
+## Usage
 #### Create a user model:
 
 -   Input: user ID, mode ['mc', 'hc', 'mix', 'rand']

@@ -10,13 +10,14 @@ trompace.ini
 
 trompa-venv/
 ini_files/
-__pycache__/
 opensmile-3.0-linux-x64/*
 data/*
 !data/data_09_08_2021.json
 !data/mapping_mw_2_ce.csv
 !data/.gitkeep
 !models/users
+!models/users/.gitkeep
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

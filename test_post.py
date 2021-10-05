@@ -34,14 +34,15 @@ args = parser.parse_args()
 
 user_id = args.u_id
 # # no docker
-# url = 'http://192.168.1.134:5000/api/v0.1/users/{}'.format(user_id)
+url = 'http://192.168.1.134:5000/api/v0.1/users/{}'.format(user_id)
 # # with docker
 # url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
 # # with vpn
-url = 'http://mirlab-web1.s.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
+# url = 'http://mirlab-web1.s.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 # # no vpn
 # url = 'https://trompa-mtg.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 q_class = ['Q1', 'Q2', 'Q3', 'Q4']
+recs_list = ['latin', 'africa', 'mideast']
 
 # testing user creation
 print('Testing user creation with API!')
@@ -70,12 +71,14 @@ for i in range(args.it):
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 
 	anno_dict = {_:random.choice(q_class) for _ in data}
+	rec = random.choice(recs_list)
 
 	time.sleep(2)
 	# testing retrain model
 	print('Testing retrain model with API!')
 	dt_te = {'method': 'retrain_model',
-	         'data': anno_dict}
+	         'data': anno_dict,
+	         'recs': rec}
 	print(dt_te)
 
 	start = time.time()

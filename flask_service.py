@@ -84,13 +84,15 @@ def user(user_id):
                 return 'User {} does not exist, create user first!'.format(user_id)
             else:
                 anno = data['data']
+                recs = data['recs']
+                
                 mode = [d for root, dirs, files in os.walk(os.path.join(path_models_users, user_id)) for d in dirs][0]
                 json_fn = os.path.join(path_user, mode, 'last_anno.json')
                 with open(json_fn, 'w') as f:
                     json.dump(anno, f, indent=4)
-                Retrainer(json_fn, path_user).run()
+                rec_list = Retrainer(json_fn, path_user, recs).run()
 
-                return 'Finished retraining models for user {}'.format(user_id)
+                return jsonify(rec_list)
 
         elif data['method'] == 'delete_user':
             if user_id in list_users:

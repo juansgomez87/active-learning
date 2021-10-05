@@ -16,6 +16,7 @@ import os
 import sys
 import pdb
 import joblib
+from scipy.stats import entropy
 import xgboost as xgb
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 import time
@@ -26,7 +27,8 @@ from settings import *
 class Retrainer():
     def __init__(self,
                  anno_dict,
-                 path_to_models):
+                 path_to_models,
+                 recs):
         """Constructor method
         """
         self.anno_dict = self.load_json(anno_dict)
@@ -35,6 +37,8 @@ class Retrainer():
         self.out_f = os.path.join(path_to_models, mode, 'pool_data.json')
         self.mod_list = [os.path.join(root, f) for root, dirs, files in os.walk(path_to_models) for f in files if f.lower().endswith('.pkl')]
         self.dict_class = {0: 'Q1', 1: 'Q2', 2: 'Q3', 3: 'Q4'}
+        self.recs = recs
+        self.playlists = pd.read_csv(playlists)
 
         if os.path.exists(dataset_fn):
             self.dataset = pd.read_csv(dataset_fn, sep=';')
@@ -61,6 +65,8 @@ class Retrainer():
                 print('Input annotations do not fit get_hard_tracks output!')
                 sys.exit()
             self.pool_info['log'].append({self.it_num: self.anno_dict})
+
+            self.old_recs = self.pool_info['recs_log']
 
             with open(self.out_f, 'w') as f:
                 json.dump(self.pool_info, f, indent=4)
@@ -106,15 +112,52 @@ class Retrainer():
                 # TODO: check metric evaluation
                 # print('Extreme gradient boosting model')
                 mod.fit(self.X_train.values, self.y_train, eval_metric='auc', xgb_model=mod.get_booster()) 
-            elif mod_fn.find('_gnb') > 0:
+            else:
                 # print('Gaussian naive bayes model')
                 mod.partial_fit(self.X_train.values, self.y_train)
             joblib.dump(mod, mod_fn)
+        
+        # return recommendations
+        this_rec = self.playlists[self.playlists.group == self.recs].cdr_track_num.tolist()
+        this_data = self.dataset[self.dataset.s_id.isin(this_rec)]
+        # try removing old recommendations
+        this_data = self.dataset[~self.dataset.s_id.isin(self.old_recs)]
+
+        this_test = this_data.loc[:, 'F0final_sma_stddev':'mfcc_sma_de[14]_amean']
+
+        pred_prob = []
+
+        for i, mod_fn in enumerate(self.mod_list):
+            # print('Predicting probabilities for model {} ({}/{})'.format(mod_fn, i, len(self.mod_list) - 1))
+            mod = joblib.load(mod_fn)
+            y_probs = mod.predict_proba(this_test.values)
+            # summarize with mean across all samples
+            y_probs = pd.DataFrame(y_probs, index=this_data.s_id).groupby(['s_id']).mean()
+            pred_prob.append(y_probs)
+
+        # disagreement-based consensus entropy
+        consensus_prob = pd.DataFrame(np.mean(np.array(pred_prob), axis=0), 
+                                      columns=['Q1', 'Q2', 'Q3', 'Q4'],
+                                      index=y_probs.index)
+
+        this_rec = {}
+        for k, v in self.dict_class.items():
+            idx = np.argmax(consensus_prob.loc[:, v])
+            this_rec[v] = consensus_prob.iloc[idx].name
+            consensus_prob = consensus_prob.drop(index=consensus_prob.iloc[idx].name)
+
+        self.pool_info = self.load_json(self.out_f)
+        self.pool_info['recs_log'].extend(list(this_rec.values()))
+        with open(self.out_f, 'w') as f:
+            json.dump(self.pool_info, f, indent=4)
+
+        return this_rec
+
 
 
 if __name__ == "__main__":
-    # usage: python3 retrain_model.py -i USER_ID -a ANNOTATIONS
-    # example: python3 retrain_model.py -i 827 -a new_anno.json
+    # usage: python3 retrain_model.py -i USER_ID -a ANNOTATIONS -r RECOMMENDATIONS
+    # example: python3 retrain_model.py -i 827 -a new_anno.json -r africa
     start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('-i',
@@ -129,10 +172,15 @@ if __name__ == "__main__":
                         action='store',
                         required=True,
                         dest='annotations')
+    parser.add_argument('-r',
+                        '--recommendations',
+                        help='Input recommendation pool: Latin America [latin], Africa [africa], Middle East [mideast]',
+                        action='store',
+                        required=True,
+                        dest='recs')
     args = parser.parse_args()
 
     try:
-        # TODO: user ids are created as numbers, will this change?
         user_id = int(args.input_user)
         path_to_models = os.path.join(path_models_users, str(user_id))
         if os.path.exists(path_to_models) is False:
@@ -146,7 +194,11 @@ if __name__ == "__main__":
         print('Select existing input annotations file!')
         sys.exit(0)
 
-    retrain = Retrainer(args.annotations, path_to_models)
+    if args.recs != 'latin' and args.recs != 'africa' and args.recs != 'mideast':
+        print('Select correct recommendation pool!')
+        sys.exit(0)
+ 
+    retrain = Retrainer(args.annotations, path_to_models, args.recs)
 
     retrain.run()
 

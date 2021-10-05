@@ -8,12 +8,13 @@ test_post.py
 trompace.ini
 .env
 
-trompa-venv/
+trompa-venv/*
 ini_files/
 opensmile-3.0-linux-x64/*
 data/*
 !data/data_09_08_2021.json
 !data/mapping_mw_2_ce.csv
+!data/playlists.csv
 !data/.gitkeep
 !models/users
 !models/users/.gitkeep

@@ -55,9 +55,11 @@ class ConsensusEntropyCalculator():
             self.it_num = self.pool_info['iteration'] + 1
             self.X_pool = self.X_pool.loc[self.pool_info['next_pool']]
             self.log_list = self.pool_info['log']
+            self.recs_log_list = self.pool_info['recs_log']
         else:
             self.it_num = 0
             self.log_list = []
+            self.recs_log_list = []
 
         # print('Iteration number: {}'.format(self.it_num))
 
@@ -175,7 +177,8 @@ class ConsensusEntropyCalculator():
         json_out = {'iteration': self.it_num,
                      'next_pool': next_pool,
                      'queried': q_songs,
-                     'log': self.log_list}
+                     'log': self.log_list,
+                     'recs_log': self.recs_log_list}
         with open(self.out_f, 'w') as f:
             json.dump(json_out, f, indent=4)
         return q_songs

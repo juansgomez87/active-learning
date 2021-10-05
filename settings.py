@@ -21,6 +21,7 @@ path_to_feats = '{}/feats'.format(path_to_data)
 dataset_fn = '{}/dataset_feats.csv'.format(path_to_data)
 dataset_anno = '{}/data_09_08_2021.json'.format(path_to_data)
 map_mw_to_ce = '{}/mapping_mw_2_ce.csv'.format(path_to_data)
+playlists = '{}/playlists.csv'.format(path_to_data)
 
 # deam data
 # this is only needed to pretrain the models

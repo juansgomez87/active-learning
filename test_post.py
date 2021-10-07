@@ -34,7 +34,9 @@ args = parser.parse_args()
 
 user_id = args.u_id
 # # no docker
-url = 'http://192.168.1.134:5000/api/v0.1/users/{}'.format(user_id)
+# url = 'http://192.168.1.134:5000/api/v0.1/users/{}'.format(user_id)
+# # no docker office
+url = 'http://10.80.25.42:5000/api/v0.1/users/{}'.format(user_id)
 # # with docker
 # url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
 # # with vpn
@@ -71,14 +73,12 @@ for i in range(args.it):
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 
 	anno_dict = {_:random.choice(q_class) for _ in data}
-	rec = random.choice(recs_list)
 
 	time.sleep(2)
 	# testing retrain model
 	print('Testing retrain model with API!')
 	dt_te = {'method': 'retrain_model',
-	         'data': anno_dict,
-	         'recs': rec}
+	         'data': anno_dict}
 	print(dt_te)
 
 	start = time.time()
@@ -86,6 +86,13 @@ for i in range(args.it):
 	print(x.text)
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 
+
+	rec = random.choice(recs_list)
+	dt_te = {'method': 'get_recommendations',
+	         'data': rec}
+	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
+	print(x.text)
+	print('--- Process lasted {} seconds'.format(time.time() - start))
 
 pdb.set_trace()
 dt_te = {'method': 'delete_user',

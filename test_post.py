@@ -36,13 +36,13 @@ user_id = args.u_id
 # # no docker
 # url = 'http://192.168.1.134:5000/api/v0.1/users/{}'.format(user_id)
 # # no docker office
-url = 'http://10.80.25.42:5000/api/v0.1/users/{}'.format(user_id)
+# url = 'http://10.80.25.42:5000/api/v0.1/users/{}'.format(user_id)
 # # with docker
 # url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
 # # with vpn
 # url = 'http://mirlab-web1.s.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 # # no vpn
-# url = 'https://trompa-mtg.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
+url = 'https://trompa-mtg.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 q_class = ['Q1', 'Q2', 'Q3', 'Q4']
 recs_list = ['latin', 'africa', 'mideast']
 
@@ -55,7 +55,7 @@ print(dt_te)
 
 start = time.time()
 x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
-print(x.text)
+print('Returns:\n{}'.format(x.text))
 print('--- Process lasted {} seconds'.format(time.time() - start))
 
 for i in range(args.it):
@@ -68,8 +68,8 @@ for i in range(args.it):
 
 	start = time.time()
 	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
-
 	data = x.json()
+	print('Returns:\n{}'.format(x.text))
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 
 	anno_dict = {_:random.choice(q_class) for _ in data}
@@ -83,19 +83,23 @@ for i in range(args.it):
 
 	start = time.time()
 	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
-	print(x.text)
+	print('Returns:\n{}'.format(x.text))
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 
 
 	rec = random.choice(recs_list)
 	dt_te = {'method': 'get_recommendations',
 	         'data': rec}
+	print(dt_te)
 	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
-	print(x.text)
+	print('Returns:\n{}'.format(x.text))
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 
 pdb.set_trace()
+start = time.time()
 dt_te = {'method': 'delete_user',
          'data': args.mode}
+print(dt_te)
 x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
-print(x.text)
+print('Returns:\n{}'.format(x.text))
+print('--- Process lasted {} seconds'.format(time.time() - start))

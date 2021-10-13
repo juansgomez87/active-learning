@@ -83,19 +83,6 @@ class Recommender():
 
 
     def run(self):
-        # # re train each model
-        # for i, mod_fn in enumerate(self.mod_list):
-        #     # print('Performing retraining for model {} ({}/{})'.format(mod_fn, i, len(self.mod_list) - 1))
-        #     mod = joblib.load(mod_fn)
-        #     if mod_fn.find('_xgb') > 0:
-        #         # TODO: check metric evaluation
-        #         # print('Extreme gradient boosting model')
-        #         mod.fit(self.X_train.values, self.y_train, eval_metric='auc', xgb_model=mod.get_booster()) 
-        #     else:
-        #         # print('Gaussian naive bayes model')
-        #         mod.partial_fit(self.X_train.values, self.y_train)
-        #     joblib.dump(mod, mod_fn)
-        
         # return recommendations
         this_rec = self.playlists[self.playlists.group == self.recs].cdr_track_num.tolist()
         # select pool of data to recommend from selection
@@ -166,10 +153,6 @@ if __name__ == "__main__":
         print('User ID is invalid')
         sys.exit(0)
 
-    # if os.path.exists(args.annotations) is False:
-    #     print('Select existing input annotations file!')
-    #     sys.exit(0)
-
     if args.recs != 'latin' and args.recs != 'africa' and args.recs != 'mideast':
         print('Select correct recommendation pool!')
         sys.exit(0)
@@ -178,6 +161,5 @@ if __name__ == "__main__":
 
     rec.run()
 
-    # print('Process lasted {} seconds!'.format((time.time()-start)))
 
 

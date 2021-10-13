@@ -99,12 +99,6 @@ def user(user_id):
                 return 'User {} does not exist, create user first!'.format(user_id)
             else:
                 recs = data['data']
-                
-                # mode = [d for root, dirs, files in os.walk(os.path.join(path_models_users, user_id)) for d in dirs][0]
-                # json_fn = os.path.join(path_user, mode, 'last_anno.json')
-                # with open(json_fn, 'w') as f:
-                #     json.dump(anno, f, indent=4)
-                # Retrainer(path_user, recs).run()
                 recs = Recommender(path_user, recs).run()
 
                 return jsonify(recs)

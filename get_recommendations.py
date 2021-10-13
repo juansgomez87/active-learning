@@ -98,9 +98,10 @@ class Recommender():
         
         # return recommendations
         this_rec = self.playlists[self.playlists.group == self.recs].cdr_track_num.tolist()
-        this_data = self.dataset[self.dataset.s_id.isin(this_rec)]
+        # select pool of data to recommend from selection
+        this_data = self.dataset[self.dataset['s_id'].isin(this_rec)]
         # try removing old recommendations
-        this_data = self.dataset[~self.dataset.s_id.isin(self.old_recs)]
+        this_data = this_data[~this_data['s_id'].isin(self.old_recs)]
         # normalize
         # this_data = StandardScaler().fit_transform(self.dataset.loc[:, 'F0final_sma_stddev':'mfcc_sma_de[14]_amean'])
 

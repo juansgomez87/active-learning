@@ -11,8 +11,7 @@ services:
     image: redis:5.0.3
     volumes:
       - redis:/data:z
-    ports:
-      - 6379:6379
+
 
   web:
     build: ./
@@ -22,7 +21,6 @@ services:
       CONFIG_REDIRECT_URL: http://localhost:5000/redirect
     command: python3 flask_service.py
     volumes:
-    # - web_home:/root
     - ./:/code
     ports:
       - "5000:5000"

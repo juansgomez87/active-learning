@@ -40,7 +40,9 @@ user_id = args.u_id
 # # with docker
 # url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
 # # with docker-compose
-url = 'http://localhost:5000/api/v0.1/users/{}'.format(user_id)
+# url = 'http://localhost:5000/api/v0.1/users/{}'.format(user_id)
+# # with docker-compose and production
+url = 'http://0.0.0.0:5000/api/v0.1/users/{}'.format(user_id)
 # # with vpn
 # url = 'http://mirlab-web1.s.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 # # no vpn

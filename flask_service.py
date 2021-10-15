@@ -31,7 +31,6 @@ load_dotenv()
 
 app = flask.Flask(__name__)
 auth = HTTPBasicAuth()
-app.config["DEBUG"] = True
 
 users = {
     os.environ['USER_API']: generate_password_hash(os.environ['PASS_API']),

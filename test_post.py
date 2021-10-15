@@ -70,6 +70,7 @@ for i in range(args.it):
 
 	start = time.time()
 	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
+	pdb.set_trace()
 	data = x.json()
 	print('Returns:\n{}'.format(x.text))
 	print('--- Process lasted {} seconds'.format(time.time() - start))

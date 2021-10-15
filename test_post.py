@@ -40,11 +40,11 @@ user_id = args.u_id
 # # with docker
 # url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
 # # with docker-compose
-# url = 'http://localhost:5000/api/v0.1/users/{}'.format(user_id)
+url = 'http://localhost:5000/api/v0.1/users/{}'.format(user_id)
 # # with vpn
 # url = 'http://mirlab-web1.s.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 # # no vpn
-url = 'https://trompa-mtg.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
+# url = 'https://trompa-mtg.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 q_class = ['Q1', 'Q2', 'Q3', 'Q4']
 recs_list = ['latin', 'africa', 'mideast']
 

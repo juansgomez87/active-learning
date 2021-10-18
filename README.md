@@ -20,7 +20,7 @@ Before starting, two downloads are needed:
 1. Download the Music-Enthusiasts data from [here](https://drive.google.com/file/d/1ZsAKCXgfqNOSyD58ZF1sVKjbQ3hWBfGf/view?usp=sharing), and extract all the files inside the `data` directory. Since this data is protected, please request access.
 
 ```
-wget --no-check-certificate https://drive.google.com/uc?export=download&id=1ZsAKCXgfqNOSyD58ZF1sVKjbQ3hWBfGf
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1ZsAKCXgfqNOSyD58ZF1sVKjbQ3hWBfGf' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1ZsAKCXgfqNOSyD58ZF1sVKjbQ3hWBfGf" -O trompa-me.zip && rm -rf /tmp/cookies.txt
 
 ```
 2. The features used to train our models are the IS13 feature set which are obtained using the OpenSmile toolbox. Download [this compiled version](https://github.com/audeering/opensmile/releases/download/v3.0.0/opensmile-3.0-linux-x64.tar.gz) and extract it to the `active-learning` home directory. Otherwise, compiling the Docker container will do this automatically for you.

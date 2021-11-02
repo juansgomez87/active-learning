@@ -31,6 +31,7 @@ class Retrainer():
         """Constructor method
         """
         self.anno_dict = self.load_json(anno_dict)
+        self.anno_dict = {k.lower(): v for k, v in self.anno_dict.items()}
         self.path_to_feats = path_to_feats
         mode = [d for root, dirs, files in os.walk(path_to_models) for d in dirs][0]
         self.out_f = os.path.join(path_to_models, mode, 'pool_data.json')
@@ -42,6 +43,8 @@ class Retrainer():
             self.dataset = pd.read_csv(dataset_fn, sep=';')
         else:
             self.dataset = self.load_feats(dataset_fn)
+
+        print(self.anno_dict)
 
         X_train = StandardScaler().fit_transform(self.dataset.loc[:, 'F0final_sma_stddev':'mfcc_sma_de[14]_amean'])
         X_train = pd.DataFrame(X_train, index=self.dataset.s_id)

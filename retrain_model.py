@@ -30,8 +30,8 @@ class Retrainer():
                  path_to_models):
         """Constructor method
         """
-        self.anno_dict = self.load_json(anno_dict)
-        self.anno_dict = {k.lower(): v for k, v in self.anno_dict.items()}
+        anno_dict = self.load_json(anno_dict)
+        self.anno_dict = {k.lower(): v for k, v in anno_dict.items()}
         self.path_to_feats = path_to_feats
         mode = [d for root, dirs, files in os.walk(path_to_models) for d in dirs][0]
         self.out_f = os.path.join(path_to_models, mode, 'pool_data.json')

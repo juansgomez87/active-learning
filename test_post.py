@@ -41,12 +41,10 @@ user_id = args.u_id
 # url = 'http://172.17.0.2:5000/api/v0.1/users/{}'.format(user_id)
 # # with docker-compose
 # url = 'http://localhost:5000/api/v0.1/users/{}'.format(user_id)
-# # with docker-compose and production
-url = 'http://0.0.0.0:5000/api/v0.1/users/{}'.format(user_id)
 # # with vpn
 # url = 'http://mirlab-web1.s.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 # # no vpn
-# url = 'https://trompa-mtg.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
+url = 'https://trompa.mtg.sb.upf.edu/active-learning/api/v0.1/users/{}'.format(user_id)
 q_class = ['Q1', 'Q2', 'Q3', 'Q4']
 recs_list = ['latin', 'africa', 'mideast']
 
@@ -72,8 +70,12 @@ for i in range(args.it):
 
 	start = time.time()
 	x = requests.post(url, json=dt_te, auth=(os.environ['USER_API'], os.environ['PASS_API']))
-	pdb.set_trace()
-	data = x.json()
+
+	try:
+		data = x.json()
+	except:
+		print(x.text)
+		pdb.set_trace()
 	print('Returns:\n{}'.format(x.text))
 	print('--- Process lasted {} seconds'.format(time.time() - start))
 
